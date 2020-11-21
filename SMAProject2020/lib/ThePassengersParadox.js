@@ -90,6 +90,7 @@ var departedcitizens3 = 0;
 var departingcitizens4 = 0;
 var departedcitizens4 = 0;
 
+var mu = 1;
 var mu1 = 1;
 var mu2 = 1;
 var mu3 = 1;
@@ -108,6 +109,9 @@ var revCount = 0;
 
 var InfectionRate = 0.8;
 var DistTransmission = 1;
+
+// Export data
+var exportData = [];
 
 // This function is executed when the script is loaded. It contains the page initialization code.
 (function() {
@@ -132,19 +136,25 @@ function redrawWindow() {
 
   // animationDelay = 550 - document.getElementById("slider1").value;
   probInfected1 = document.getElementById("slider1").value;
-  probInfected2 = document.getElementById("slider4").value;
-  probInfected3 = document.getElementById("slider7").value;
-  probInfected4 = document.getElementById("slider10").value;
+  probInfected2 = document.getElementById("slider5").value;
+  probInfected3 = document.getElementById("slider9").value;
+  probInfected4 = document.getElementById("slider13").value;
 
   lambda1 = document.getElementById("slider2").value;
-  lambda2 = document.getElementById("slider5").value;
-  lambda3 = document.getElementById("slider8").value;
-  lambda4 = document.getElementById("slider11").value;
+  lambda2 = document.getElementById("slider6").value;
+  lambda3 = document.getElementById("slider10").value;
+  lambda4 = document.getElementById("slider14").value;
 
+  mu = document.getElementById("slider0").value;
   mu1 = document.getElementById("slider3").value;
-  mu2 = document.getElementById("slider6").value;
-  mu3 = document.getElementById("slider9").value;
-  mu4 = document.getElementById("slider12").value;
+  mu2 = document.getElementById("slider7").value;
+  mu3 = document.getElementById("slider11").value;
+  mu4 = document.getElementById("slider15").value;
+
+  probArrival1 = document.getElementById("slider4").value;
+  probArrival2 = document.getElementById("slider8").value;
+  probArrival3 = document.getElementById("slider12").value;
+  probArrival4 = document.getElementById("slider16").value;
 
   simTimer = window.setInterval(simStep, animationDelay); // Call the function simStep every animationDelay milliseconds
 
@@ -280,9 +290,9 @@ function addDynamicAgents() {
     var targetrow = Math.floor(Math.random()*((nrow+srow)-srow)+srow);
     var targetcol = Math.floor(Math.random()*((ncol+scol)-scol)+scol);
     if (Math.random() < probInfected) {
-      var newcitizen = {"infected": 1, "location": {"row": homerow, "col": homecol}, "target": {"row": targetrow, "col": targetcol}, "state": COMMUTING, "timeAdmitted": currentTime};
+      var newcitizen = {"origin": "Island", "infected": 1, "location": {"row": homerow, "col": homecol}, "target": {"row": targetrow, "col": targetcol}, "state": COMMUTING, "timeAdmitted": currentTime, "timeInfected": currentTime};
     } else {
-      var newcitizen = {"infected": 0, "location": {"row": homerow, "col": homecol}, "target": {"row": targetrow, "col": targetcol}, "state": COMMUTING, "timeAdmitted": currentTime};
+      var newcitizen = {"origin": "Island", "infected": 0, "location": {"row": homerow, "col": homecol}, "target": {"row": targetrow, "col": targetcol}, "state": COMMUTING, "timeAdmitted": currentTime, "timeInfected": 0};
     }
     citizens.push(newcitizen);
   }
@@ -300,19 +310,19 @@ function addDynamicAgents() {
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected1) {
-            var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
             citizens.push(newpassenger);
           } else {
-            var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
             citizens.push(newpassenger);
           }
         } else {
           if (Math.random() < probArrival1) {
             if (Math.random() < probInfected1) {
-              var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
             } else {
-              var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
@@ -334,19 +344,19 @@ function addDynamicAgents() {
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected2) {
-            var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
             citizens.push(newpassenger);
           } else {
-            var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
             citizens.push(newpassenger);
           }
         } else {
           if (Math.random() < probArrival2) {
             if (Math.random() < probInfected2) {
-              var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
             } else {
-              var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
@@ -368,19 +378,19 @@ function addDynamicAgents() {
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected3) {
-            var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
             citizens.push(newpassenger);
           } else {
-            var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
             citizens.push(newpassenger);
           }
         } else {
           if (Math.random() < probArrival3) {
             if (Math.random() < probInfected3) {
-              var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
             } else {
-              var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
@@ -402,19 +412,19 @@ function addDynamicAgents() {
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected4) {
-            var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
             citizens.push(newpassenger);
           } else {
-            var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+            var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
             citizens.push(newpassenger);
           }
         } else {
           if (Math.random() < probArrival4) {
             if (Math.random() < probInfected4) {
-              var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
             } else {
-              var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime};
+              var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
@@ -536,7 +546,10 @@ function updateCitizen(citizenIndex) {
       var infectedcol = infected.location.col;
       var distance = Math.sqrt((infectedrow-row)*(infectedrow-row)+(infectedcol-col)*(infectedcol-col));
       if (distance < DistTransmission){
-        if (Math.random() < InfectionRate) {citizen.infected = 1;};
+        if (Math.random() < InfectionRate) {
+          citizen.infected = 1;
+          citizen.timeInfected = currentTime;
+        };
       }
       i=i+1;
     }
@@ -616,28 +629,35 @@ function updateCitizen(citizenIndex) {
   var timeOnIsland = currentTime - citizen.timeAdmitted;
   var costStats = statistics[0];
   var revStats = statistics[1];
-  if (citizen.origin == "Africas") {
-    if (citizen.infected == 1) {
-      costCount += mu1 * timeOnIsland * 30000 * 1.7;
+  if (citizen.infected == 1) {
+    var timeSpentInfected = currentTime - citizen.timeInfected;
+    if (citizen.origin == "Island") {
+      costCount += mu * timeSpentInfected * 30000 * 1.7;
     }
+    if (citizen.origin == "Africas") {
+      costCount += mu1 * timeSpentInfected * 30000 * 1.7;
+    }
+    if (citizen.origin == "APAC") {
+      costCount += mu2 * timeSpentInfected * 30000 * 1.7;
+    }
+    if (citizen.origin == "Americas") {
+      costCount += mu3 * timeSpentInfected * 30000 * 1.7;
+    }
+    if (citizen.origin == "Europe") {
+      costCount += mu4 * timeSpentInfected * 30000 * 1.7;
+    }
+  }
+
+  if (citizen.origin == "Africas") {
     revCount += lambda1 * timeOnIsland * gdp1;
   }
   if (citizen.origin == "APAC") {
-    if (citizen.infected == 1) {
-      costCount += mu2 * timeOnIsland * 30000 * 1.7;
-    }
     revCount += lambda2 * timeOnIsland * gdp2;
   }
   if (citizen.origin == "Americas") {
-    if (citizen.infected == 1) {
-      costCount += mu3 * timeOnIsland * 30000 * 1.7;
-    }
     revCount += lambda3 * timeOnIsland * gdp3;
   }
   if (citizen.origin == "Europe") {
-    if (citizen.infected == 1) {
-      costCount += mu4 * timeOnIsland * 30000 * 1.7;
-    }
     revCount += lambda4 * timeOnIsland * gdp4;
   }
 }
@@ -711,7 +731,19 @@ function simStep() {
     removeDynamicAgents();
     statistics[0].count = costCount;
     statistics[1].count = revCount;
+    exportData.push([costCount, revCount])
     costCount = 0;
     revCount = 0;
   }
+}
+
+function exportDataFunction() {
+  let csvContent = "data:text/csv;charset=utf-8," + exportData.map(e => e.join(",")).join("\n");
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "my_data.csv");
+  document.body.appendChild(link); // Required for FF
+
+  link.click(); // This will download the data file named "my_data.csv".
 }
