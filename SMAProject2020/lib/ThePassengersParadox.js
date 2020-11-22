@@ -84,7 +84,7 @@ var planeFrequency2 = 1;
 var planeFrequency3 = 1;
 var planeFrequency4 = 1;
 
-var probInfected = 0.2;
+var probInfected = 0;
 var probRecovered = 0.2;
 var departingcitizens1 = 0;
 var departedcitizens1 = 0;
