@@ -632,33 +632,42 @@ function updateCitizen(citizenIndex) {
   if (citizen.infected == 1) {
     var timeSpentInfected = currentTime - citizen.timeInfected;
     if (citizen.origin == "Island") {
-      costCount += mu * timeSpentInfected * 30000 * 1.7;
+      statistics[0].count += mu * timeSpentInfected * 30000 * 1.7;
+      //costCount += mu * timeSpentInfected * 30000 * 1.7;
     }
     if (citizen.origin == "Africas") {
-      costCount += mu1 * timeSpentInfected * 30000 * 1.7;
+      statistics[0].count += mu1 * timeSpentInfected * 30000 * 1.7;
+      // costCount += mu1 * timeSpentInfected * 30000 * 1.7;
     }
     if (citizen.origin == "APAC") {
-      costCount += mu2 * timeSpentInfected * 30000 * 1.7;
+      statistics[0].count += mu2 * timeSpentInfected * 30000 * 1.7;
+      // costCount += mu2 * timeSpentInfected * 30000 * 1.7;
     }
     if (citizen.origin == "Americas") {
-      costCount += mu3 * timeSpentInfected * 30000 * 1.7;
+      statistics[0].count += mu3 * timeSpentInfected * 30000 * 1.7;
+      // costCount += mu3 * timeSpentInfected * 30000 * 1.7;
     }
     if (citizen.origin == "Europe") {
-      costCount += mu4 * timeSpentInfected * 30000 * 1.7;
+      statistics[0].count += mu4 * timeSpentInfected * 30000 * 1.7;
+      // costCount += mu4 * timeSpentInfected * 30000 * 1.7;
     }
   }
 
   if (citizen.origin == "Africas") {
-    revCount += lambda1 * timeOnIsland * gdp1;
+    statistics[1].count += lambda1 * timeOnIsland * gdp1;
+    // revCount += lambda1 * timeOnIsland * gdp1;
   }
   if (citizen.origin == "APAC") {
-    revCount += lambda2 * timeOnIsland * gdp2;
+    statistics[1].count += lambda2 * timeOnIsland * gdp2;
+    // revCount += lambda2 * timeOnIsland * gdp2;
   }
   if (citizen.origin == "Americas") {
-    revCount += lambda3 * timeOnIsland * gdp3;
+    statistics[1].count += lambda3 * timeOnIsland * gdp3;
+    // revCount += lambda3 * timeOnIsland * gdp3;
   }
   if (citizen.origin == "Europe") {
-    revCount += lambda4 * timeOnIsland * gdp4;
+    statistics[1].count += lambda4 * timeOnIsland * gdp4;
+    // revCount += lambda4 * timeOnIsland * gdp4;
   }
 }
 
@@ -729,11 +738,11 @@ function simStep() {
     addDynamicAgents();
     updateDynamicAgents();
     removeDynamicAgents();
-    statistics[0].count = costCount;
-    statistics[1].count = revCount;
-    exportData.push([costCount, revCount])
-    costCount = 0;
-    revCount = 0;
+    // statistics[0].count = costCount;
+    // statistics[1].count = revCount;
+    exportData.push([statistics[0].count, statistics[1].count])
+    // costCount = 0;
+    // revCount = 0;
   }
 }
 
