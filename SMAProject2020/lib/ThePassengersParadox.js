@@ -66,14 +66,14 @@ var statistics = [
 ];
 
 // Probabilities
-var probArrival1 = 0.1;
-var probArrival2 = 0.1;
-var probArrival3 = 0.1;
-var probArrival4 = 0.1;
-var probInfected1 = 0.1;
-var probInfected2 = 0.3;
-var probInfected3 = 0.8;
-var probInfected4 = 0.1;
+var probArrival1 = 0.08604694236; // Africas
+var probArrival2 = 0.00004028712181; // APAC
+var probArrival3 = 0.0003159177884; // Americas
+var probArrival4 = 0.00006272377198; // Europe
+var probInfected1 = 0.0009157994159; // Africas
+var probInfected2 = 0.001704577167; // APAC
+var probInfected3 = 0.0482413534; // Americas
+var probInfected4 = 0.009253520108; // Europe
 var probDeparture1 = 0.5;
 var probDeparture2 = 0.5;
 var probDeparture3 = 0.5;
@@ -99,10 +99,10 @@ var lambda1 = 1;
 var lambda2 = 1;
 var lambda3 = 1;
 var lambda4 = 1;
-var gdp1 = 10000;
-var gdp2 = 10000;
-var gdp3 = 10000;
-var gdp4 = 10000;
+var gdp1 = 4950; // Africas
+var gdp2 = 13380; // APAC
+var gdp3 = 50290; // Americas
+var gdp4 = 38210; // Europe
 
 var costCount = 0;
 var revCount = 0;

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-<title>Circuit Breaker Agent Model</title>
+<title>The Passengers' Paradox</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
@@ -25,7 +25,7 @@
 	<svg  id="surface" style="width:100%; height:100%" xmlns="http://www.w3.org/2000/svg" version="1.1" onclick="toggleSimStep();">
 	</svg>
 
-	<div id="title"  style="position:absolute;top:2%;left:1%">The Passenger's Paradox</div>
+	<div id="title"  style="position:absolute;top:2%;left:1%">The Passengers' Paradox</div>
 	<button onclick="exportDataFunction()"> Export Data </button>
 	<a id="credits" href="http://www.icons-land.com" style="position:absolute;bottom:0;right:0;display:none;">Icons by icons-land.com</a>
 
@@ -36,38 +36,42 @@
 	<div class = "placeholder-box" style="display:inline-block;">
 		<p style="position:absolute;top:107.5%;left:-45%;"> mu </p>
 		<p><input id="slider0" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:117.5%;left:-45%"/></p>
+
 		<p style="position:absolute;top:2.5%;left:5%;"> p 1 </p>
-		<p><input id="slider1" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:12.5%;left:5%"/></p>
+		<p><input id="slider1" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:12.5%;left:5%"/></p>
 		<p style="position:absolute;top:17.5%;left:5%"> lambda 1 </p>
-		<p><input id="slider2" type="range" min="0" value="0.7" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:27.5%;left:5%" /></p>
+		<p><input id="slider2" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:27.5%;left:5%" /></p>
 		<p style="position:absolute;top:32.5%;left:5%"> mu 1 </p>
-		<p><input id="slider3" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:42.5%;left:5%" /></p>
+		<p><input id="slider3" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:42.5%;left:5%" /></p>
 		<p style="position:absolute;top:47.5%;left:5%"> pA 1 </p>
 		<p><input id="slider4" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:57.5%;left:5%" /></p>
+
 		<p style="position:absolute;top:62.5%;left:5%"> p 2</p>
 		<p><input id="slider5" type="range" min="0" value="0.3" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:72.5%;left:5%" /></p>
 		<p style="position:absolute;top:77.5%;left:5%"> lambda 2 </p>
-		<p><input id="slider6" type="range" min="0" value="1" max="3" step="0.5" onchange="redrawWindow();" style="position:absolute;top:87.5%;left:5%" /></p>
+		<p><input id="slider6" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:87.5%;left:5%" /></p>
 		<p style="position:absolute;top:92.5%;left:5%"> mu 2</p>
-		<p><input id="slider7" type="range" min="0" value="0.3" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:102.5%;left:5%" /></p>
+		<p><input id="slider7" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:102.5%;left:5%" /></p>
 		<p style="position:absolute;top:107.5%;left:5%"> pA 2 </p>
 		<p><input id="slider8" type="range" min="0" value="1" max="3" step="0.5" onchange="redrawWindow();" style="position:absolute;top:117.5%;left:5%" /></p>
+
 		<p style="position:absolute;top:2.5%;left:55%;"> p 3 </p>
-		<p><input id="slider9" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:12.5%;left:55%"/></p>
+		<p><input id="slider9" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:12.5%;left:55%"/></p>
 		<p style="position:absolute;top:17.5%;left:55%"> lambda 3 </p>
-		<p><input id="slider10" type="range" min="0" value="0.7" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:27.5%;left:55%" /></p>
+		<p><input id="slider10" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:27.5%;left:55%" /></p>
 		<p style="position:absolute;top:32.5%;left:55%"> mu 3 </p>
-		<p><input id="slider11" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:42.5%;left:55%" /></p>
+		<p><input id="slider11" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:42.5%;left:55%" /></p>
 		<p style="position:absolute;top:47.5%;left:55%"> pA 3 </p>
 		<p><input id="slider12" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:57.5%;left:55%" /></p>
+
 		<p style="position:absolute;top:62.5%;left:55%"> p 4 </p>
-		<p><input id="slider13" type="range" min="0" value="0.3" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:72.5%;left:55%" /></p>
+		<p><input id="slider13" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:72.5%;left:55%" /></p>
 		<p style="position:absolute;top:77.5%;left:55%"> lambda 4 </p>
-		<p><input id="slider14" type="range" min="0" value="1" max="3" step="0.5" onchange="redrawWindow();" style="position:absolute;top:87.5%;left:55%" /></p>
+		<p><input id="slider14" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:87.5%;left:55%" /></p>
 		<p style="position:absolute;top:92.5%;left:55%"> mu 4 </p>
-		<p><input id="slider15" type="range" min="0" value="0.3" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:102.5%;left:55%" /></p>
+		<p><input id="slider15" type="range" min="0" value="300" max="5000" step="10" onchange="redrawWindow();" style="position:absolute;top:102.5%;left:55%" /></p>
 		<p style="position:absolute;top:107.5%;left:55%"> pA 4 </p>
-		<p><input id="slider16" type="range" min="0" value="1" max="3" step="0.5" onchange="redrawWindow();" style="position:absolute;top:117.5%;left:55%" /></p>
+		<p><input id="slider16" type="range" min="0" value="0.2" max="1" step="0.05" onchange="redrawWindow();" style="position:absolute;top:117.5%;left:55%" /></p>
 	</div>
 	<script type="text/javascript" src="lib/PlotGraph.js"></script>
 	<script type="text/javascript" src="lib/ThePassengersParadox.js"></script>
