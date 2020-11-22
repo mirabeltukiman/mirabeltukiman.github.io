@@ -66,18 +66,23 @@ var statistics = [
 ];
 
 // Probabilities
-var probArrival1 = 0.08604694236; // Africas
-var probArrival2 = 0.00004028712181; // APAC
-var probArrival3 = 0.0003159177884; // Americas
-var probArrival4 = 0.00006272377198; // Europe
-var probInfected1 = 0.0009157994159; // Africas
-var probInfected2 = 0.001704577167; // APAC
-var probInfected3 = 0.0482413534; // Americas
-var probInfected4 = 0.009253520108; // Europe
+var probArrival1 = 0.8604694236; // Africas
+var probArrival2 = 0.0004028712181; // APAC
+var probArrival3 = 0.003159177884; // Americas
+var probArrival4 = 0.0006272377198; // Europe
+var probInfected1 = 0.009157994159; // Africas
+var probInfected2 = 0.01704577167; // APAC
+var probInfected3 = 0.482413534; // Americas
+var probInfected4 = 0.09253520108; // Europe
 var probDeparture1 = 0.5;
 var probDeparture2 = 0.5;
 var probDeparture3 = 0.5;
 var probDeparture4 = 0.5;
+
+var planeFrequency1 = 1;
+var planeFrequency2 = 1;
+var planeFrequency3 = 1;
+var planeFrequency4 = 1;
 
 var probInfected = 0.2;
 var probRecovered = 0.2;
@@ -151,10 +156,26 @@ function redrawWindow() {
   mu3 = document.getElementById("slider11").value;
   mu4 = document.getElementById("slider15").value;
 
-  probArrival1 = document.getElementById("slider4").value;
-  probArrival2 = document.getElementById("slider8").value;
-  probArrival3 = document.getElementById("slider12").value;
-  probArrival4 = document.getElementById("slider16").value;
+  if (document.getElementById("slider4").value == 0) {
+    planeFrequency1 = 0;
+  } else {
+    planeFrequency1 = Math.floor(100 / document.getElementById("slider4").value);
+  }
+  if (document.getElementById("slider8").value == 0) {
+    planeFrequency2 = 0;
+  } else {
+    planeFrequency2 = Math.floor(100 / document.getElementById("slider8").value);
+  }
+  if (document.getElementById("slider12").value == 0) {
+    planeFrequency3 = 0;
+  } else {
+    planeFrequency3 = Math.floor(100 / document.getElementById("slider12").value);
+  }
+  if (document.getElementById("slider16").value == 0) {
+    planeFrequency4 = 0;
+  } else {
+    planeFrequency4 = Math.floor(100 / document.getElementById("slider16").value);
+  }
 
   simTimer = window.setInterval(simStep, animationDelay); // Call the function simStep every animationDelay milliseconds
 
@@ -297,7 +318,7 @@ function addDynamicAgents() {
     citizens.push(newcitizen);
   }
 
-  if (Math.random() < probArrival1) {
+  if (currentTime % planeFrequency1 == 0) {
     var existing1 = false;
     for (var plane of planes) {
       if (plane.type == "Africas") {
@@ -331,7 +352,7 @@ function addDynamicAgents() {
     }
   }
 
-  if (Math.random() < probArrival2) {
+  if (currentTime % planeFrequency2 == 0) {
     var existing2 = false;
     for (var plane of planes) {
       if (plane.type == "APAC") {
@@ -365,7 +386,7 @@ function addDynamicAgents() {
     }
   }
 
-  if (Math.random() < probArrival3) {
+  if (currentTime % planeFrequency3 == 0) {
     var existing3 = false;
     for (var plane of planes) {
       if (plane.type == "Americas") {
@@ -399,7 +420,7 @@ function addDynamicAgents() {
     }
   }
 
-  if (Math.random() < probArrival4) {
+  if (currentTime % planeFrequency4 == 0) {
     var existing4 = false;
     for (var plane of planes) {
       if (plane.type == "Europe") {
@@ -447,7 +468,7 @@ function updatePlane(planeIndex) {
   if (state == ARRIVED) {
     if (hasArrived) {
       if (type == "Africas") {
-        if (Math.random() < probDeparture1) {
+        if (currentTime % planeFrequency1 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Africas") {
@@ -462,7 +483,7 @@ function updatePlane(planeIndex) {
         }
       }
       if (type == "APAC") {
-        if (Math.random() < probDeparture2) {
+        if (currentTime % planeFrequency2 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "APAC") {
@@ -477,7 +498,7 @@ function updatePlane(planeIndex) {
         }
       }
       if (type == "Americas") {
-        if (Math.random() < probDeparture3) {
+        if (currentTime % planeFrequency3 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Americas") {
@@ -492,7 +513,7 @@ function updatePlane(planeIndex) {
         }
       }
       if (type == "Europe") {
-        if (Math.random() < probDeparture4) {
+        if (currentTime % planeFrequency4 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Europe") {
@@ -654,20 +675,28 @@ function updateCitizen(citizenIndex) {
   }
 
   if (citizen.origin == "Africas") {
-    statistics[1].count += lambda1 * timeOnIsland * gdp1;
-    // revCount += lambda1 * timeOnIsland * gdp1;
+    if (timeOnIsland > 0) {
+      statistics[1].count += lambda1 * timeOnIsland * gdp1 / (timeOnIsland+1);
+      // revCount += lambda1 * timeOnIsland * gdp1;
+    }
   }
   if (citizen.origin == "APAC") {
-    statistics[1].count += lambda2 * timeOnIsland * gdp2;
-    // revCount += lambda2 * timeOnIsland * gdp2;
+    if (timeOnIsland > 0) {
+      statistics[1].count += lambda2 * timeOnIsland * gdp2 / (timeOnIsland+1);
+      // revCount += lambda2 * timeOnIsland * gdp2;
+    }
   }
   if (citizen.origin == "Americas") {
-    statistics[1].count += lambda3 * timeOnIsland * gdp3;
-    // revCount += lambda3 * timeOnIsland * gdp3;
+    if (timeOnIsland > 0) {
+      statistics[1].count += lambda3 * timeOnIsland * gdp3 / (timeOnIsland+1);
+      // revCount += lambda3 * timeOnIsland * gdp3;
+    }
   }
   if (citizen.origin == "Europe") {
-    statistics[1].count += lambda4 * timeOnIsland * gdp4;
-    // revCount += lambda4 * timeOnIsland * gdp4;
+    if (timeOnIsland > 0) {
+      statistics[1].count += lambda4 * timeOnIsland * gdp4 / (timeOnIsland+1);
+      // revCount += lambda4 * timeOnIsland * gdp4;
+    }
   }
 }
 
