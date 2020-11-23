@@ -185,6 +185,7 @@ function redrawWindow() {
   citizens = [];
   statistics[0].count = 0;
   statistics[1].count = 0;
+  exportData = [];
 
   // Resize the drawing surface and remove all its contents
   var drawsurface = document.getElementById("surface");
@@ -770,6 +771,8 @@ function simStep() {
     // statistics[0].count = costCount;
     // statistics[1].count = revCount;
     exportData.push([statistics[0].count, statistics[1].count])
+    console.log(statistics[0].count)
+    console.log(statistics[1].count)
     // costCount = 0;
     // revCount = 0;
   }
