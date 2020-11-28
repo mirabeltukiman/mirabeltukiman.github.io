@@ -23,6 +23,11 @@ const urlHomeIsland = "images/Home Island.png";
 const urlCitizenInfected = "images/Americas Person.png";
 const urlCitizenNotInfected = "images/Africas Person.png";
 
+var automatedDataFetch;
+var numberOfRuns;
+var numberOfDataPoints;
+var currentRun;
+
 // Dynamic lists, initally empty
 planes = [];
 citizens = [];
@@ -117,6 +122,7 @@ var DistTransmission = 1;
 
 // Export data
 var exportData = [];
+var exportDataAutomated = [];
 
 // This function is executed when the script is loaded. It contains the page initialization code.
 (function() {
@@ -126,10 +132,12 @@ var exportData = [];
 })();
 
 // Function to start and pause the simulation
-function toggleSimStep() {
+function toggleSimStep(automated, i) {
   // This function is called by a click event on the html page
   isRunning = !isRunning;
   console.log("isRunning: " + isRunning);
+  automatedDataFetch = automated;
+  currentRun = i;
 }
 
 function redrawWindow() {
@@ -251,7 +259,7 @@ function updateSurface() {
 
   // CITIZENS
   var allcitizens = surface.selectAll(".citizens").data(citizens);
-  // allcitizens.exit().remove();
+  allcitizens.exit().remove();
   var newcitizens = allcitizens.enter().append("g").attr("class", "citizens");
   newcitizens.append("svg:image")
   .attr("x", function(d){var cell=getLocationCell(d.location); return cell.x+"px";})
@@ -763,18 +771,18 @@ function updateDynamicAgents() {
 }
 
 function simStep() {
-  if (isRunning) {
-    currentTime++;
-    addDynamicAgents();
-    updateDynamicAgents();
-    removeDynamicAgents();
-    // statistics[0].count = costCount;
-    // statistics[1].count = revCount;
-    exportData.push([statistics[0].count, statistics[1].count])
-    console.log(statistics[0].count)
-    console.log(statistics[1].count)
-    // costCount = 0;
-    // revCount = 0;
+  if (automatedDataFetch == 0) {
+    if (isRunning) {
+      currentTime++;
+      addDynamicAgents();
+      updateDynamicAgents();
+      removeDynamicAgents();
+      // statistics[0].count = costCount;
+      // statistics[1].count = revCount;
+      exportData.push([statistics[0].count, statistics[1].count])
+      // costCount = 0;
+      // revCount = 0;
+    }
   }
 }
 
@@ -787,4 +795,42 @@ function exportDataFunction() {
   document.body.appendChild(link); // Required for FF
 
   link.click(); // This will download the data file named "my_data.csv".
+}
+
+function exportDataFunctionAutomated() {
+  console.log("Evaluating..")
+  numberOfRuns = Number(document.getElementById("NumberOfRuns").value);
+  numberOfDataPoints = Number(document.getElementById("NumberOfDataPoints").value);
+
+  // Initialize the array for the data to be exported
+  for (i=1; i <= numberOfRuns; i++) {
+    exportDataAutomated.push(["Run " + i + " Cost"]);
+    exportDataAutomated.push(["Run " + i + " Revenue"]);
+  }
+
+  var i = 0
+  while (i < numberOfRuns) {
+    while (currentTime < numberOfDataPoints) {
+      currentTime++;
+      addDynamicAgents();
+      updateDynamicAgents();
+      removeDynamicAgents();
+
+      exportDataAutomated[2*(i)].push(statistics[0].count);
+      exportDataAutomated[2*(i)+1].push(statistics[1].count);
+    }
+    i++;
+    redrawWindow();
+  }
+
+  let csvContent = "data:text/csv;charset=utf-8," + exportDataAutomated.map(e => e.join(",")).join("\n");
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "my_data.csv");
+  document.body.appendChild(link); // Required for FF
+
+  link.click(); // This will download the data file named "my_data.csv".
+
+  exportDataAutomated = [];
 }

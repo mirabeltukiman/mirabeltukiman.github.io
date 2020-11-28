@@ -15,7 +15,10 @@ function plotGraph() {
   const layout1 = {
   	paper_bgcolor: 'rgba(0,0,0,0)',
   	plot_bgcolor: 'rgba(0,0,0,0)',
-  	height: 300
+  	height: 300,
+    xaxis: {
+      showticklabels: false
+    }
   };
 
 

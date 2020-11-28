@@ -22,11 +22,18 @@
 <body class="official bgColor7">
 
 	<!-- The surface is the main playing field for the game -->
-	<svg  id="surface" style="width:100%; height:100%" xmlns="http://www.w3.org/2000/svg" version="1.1" onclick="toggleSimStep();">
+	<svg  id="surface" style="width:100%; height:100%" xmlns="http://www.w3.org/2000/svg" version="1.1" onclick="toggleSimStep(0);">
 	</svg>
 
 	<div id="title"  style="position:absolute;top:2%;left:1%">The Passengers' Paradox</div>
 	<button onclick="exportDataFunction()"> Export Data </button>
+	<button onclick="exportDataFunctionAutomated()"> Automated Data Export </button>
+	<div>
+    <label for="NumberOfRuns"> Number of Runs: </label>
+    <input type="text" id="NumberOfRuns" name="NumberOfRuns"> <br> <br>
+    <label for="NumberOfDataPoints"> Number of Data Points: </label>
+    <input type="text" id="NumberOfDataPoints" name="NumberOfDataPoints"> <br> <br>
+  </div>
 	<a id="credits" href="http://www.icons-land.com" style="position:absolute;bottom:0;right:0;display:none;">Icons by icons-land.com</a>
 
 	<!-- Add in Charts -->
@@ -35,35 +42,35 @@
 	<!-- Add in Sliders -->
 	<div class = "placeholder-box" style="display:inline-block;">
 		<p style="position:absolute;top:107.5%;left:-45%;"> mu </p>
-		<p style="position:absolute;top:112.5%;left:-45%;"> 0 <input id="slider0" type="range" min="0" value="5" max="10" step="1" list="tickmarks0" onchange="redrawWindow();"/> 10 </p>
+		<p style="position:absolute;top:112.5%;left:-45%;"> 0 <input id="slider0" type="range" min="0" value="50" max="100" step="10" list="tickmarks0" onchange="redrawWindow();"/> 100 </p>
 		<datalist id="tickmarks0">
 		  <option value="0"></option>
-		  <option value="1"></option>
-		  <option value="2"></option>
-		  <option value="3"></option>
-		  <option value="4"></option>
-		  <option value="5"></option>
-		  <option value="6"></option>
-		  <option value="7"></option>
-		  <option value="8"></option>
-		  <option value="9"></option>
 		  <option value="10"></option>
+		  <option value="20"></option>
+		  <option value="30"></option>
+		  <option value="40"></option>
+		  <option value="50"></option>
+		  <option value="60"></option>
+		  <option value="70"></option>
+		  <option value="80"></option>
+		  <option value="90"></option>
+		  <option value="100"></option>
 		</datalist>
 
 		<p style="position:absolute;top:2.5%;left:5%;"> p 1 </p>
-		<p style="position:absolute;top:7.5%;left:5%;"> 0 <input id="slider1" type="range" min="0" value="0.5" max="1" step="0.1" list="tickmarks1" onchange="redrawWindow();"/> 1 </p>
+		<p style="position:absolute;top:7.5%;left:5%;"> 0 <input id="slider1" type="range" min="0" value="0.01" max="0.1" step="0.01" list="tickmarks1" onchange="redrawWindow();"/> 0.1 </p>
 		<datalist id="tickmarks1">
 		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
 		  <option value="0.1"></option>
-		  <option value="0.2"></option>
-		  <option value="0.3"></option>
-		  <option value="0.4"></option>
-		  <option value="0.5"></option>
-		  <option value="0.6"></option>
-		  <option value="0.7"></option>
-		  <option value="0.8"></option>
-		  <option value="0.9"></option>
-		  <option value="1"></option>
 		</datalist>
 		<p style="position:absolute;top:17.5%;left:5%;"> lambda 1 </p>
 		<p style="position:absolute;top:22.5%;left:5%;"> 0 <input id="slider2" type="range" min="0" value="50" max="100" step="10" list="tickmarks2" onchange="redrawWindow();"/> 100 </p>
@@ -81,19 +88,19 @@
 		  <option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:32.5%;left:5%;"> mu 1 </p>
-		<p style="position:absolute;top:37.5%;left:5%;"> 0 <input id="slider3" type="range" min="0" value="5" max="10" step="1" list="tickmarks3" onchange="redrawWindow();"/> 10 </p>
+		<p style="position:absolute;top:37.5%;left:5%;"> 0 <input id="slider3" type="range" min="0" value="50" max="100" step="10" list="tickmarks3" onchange="redrawWindow();"/> 100 </p>
 		<datalist id="tickmarks3">
 		  <option value="0"></option>
-		  <option value="1"></option>
-		  <option value="2"></option>
-		  <option value="3"></option>
-		  <option value="4"></option>
-		  <option value="5"></option>
-		  <option value="6"></option>
-		  <option value="7"></option>
-		  <option value="8"></option>
-		  <option value="9"></option>
 		  <option value="10"></option>
+		  <option value="20"></option>
+		  <option value="30"></option>
+		  <option value="40"></option>
+		  <option value="50"></option>
+		  <option value="60"></option>
+		  <option value="70"></option>
+		  <option value="80"></option>
+		  <option value="90"></option>
+		  <option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:47.5%;left:5%;"> f 1 </p>
 		<p style="position:absolute;top:52.5%;left:5%;"> 0 <input id="slider4" type="range" min="0" value="5" max="10" step="1" list="tickmarks4" onchange="redrawWindow();"/> 10</p>
@@ -112,19 +119,19 @@
 		</datalist>
 
 		<p style="position:absolute;top:62.5%;left:5%;"> p 2 </p>
-		<p style="position:absolute;top:67.5%;left:5%;"> 0 <input id="slider5" type="range" min="0" value="0.5" max="1" step="0.1" list="tickmarks5" onchange="redrawWindow();"/> 1 </p>
+		<p style="position:absolute;top:67.5%;left:5%;"> 0 <input id="slider5" type="range" min="0" value="0.01" max="0.1" step="0.01" list="tickmarks5" onchange="redrawWindow();"/> 0.1 </p>
 		<datalist id="tickmarks5">
 		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
 		  <option value="0.1"></option>
-		  <option value="0.2"></option>
-		  <option value="0.3"></option>
-		  <option value="0.4"></option>
-		  <option value="0.5"></option>
-		  <option value="0.6"></option>
-		  <option value="0.7"></option>
-		  <option value="0.8"></option>
-		  <option value="0.9"></option>
-		  <option value="1"></option>
 		</datalist>
 		<p style="position:absolute;top:77.5%;left:5%;"> lambda 2 </p>
 		<p style="position:absolute;top:82.5%;left:5%;"> 0 <input id="slider6" type="range" min="0" value="50" max="100" step="10" list="tickmarks6" onchange="redrawWindow();"/> 100 </p>
@@ -142,19 +149,19 @@
 			<option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:92.5%;left:5%;"> mu 2</p>
-		<p style="position:absolute;top:97.5%;left:5%;"> 0 <input id="slider7" type="range" min="0" value="5" max="10" step="1" list="tickmarks7" onchange="redrawWindow();"/> 10 </p>
+		<p style="position:absolute;top:97.5%;left:5%;"> 0 <input id="slider7" type="range" min="0" value="50" max="100" step="10" list="tickmarks7" onchange="redrawWindow();"/> 100 </p>
 		<datalist id="tickmarks7">
 		  <option value="0"></option>
-		  <option value="1"></option>
-		  <option value="2"></option>
-		  <option value="3"></option>
-		  <option value="4"></option>
-		  <option value="5"></option>
-		  <option value="6"></option>
-		  <option value="7"></option>
-		  <option value="8"></option>
-		  <option value="9"></option>
 		  <option value="10"></option>
+		  <option value="20"></option>
+		  <option value="30"></option>
+		  <option value="40"></option>
+		  <option value="50"></option>
+		  <option value="60"></option>
+		  <option value="70"></option>
+		  <option value="80"></option>
+		  <option value="90"></option>
+		  <option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:107.5%;left:5%;"> f 2 </p>
 		<p style="position:absolute;top:112.5%;left:5%;"> 0 <input id="slider8" type="range" min="0" value="5" max="10" step="1" list="tickmarks8" onchange="redrawWindow();"/> 10 </p>
@@ -173,19 +180,19 @@
 		</datalist>
 
 		<p style="position:absolute;top:2.5%;left:55%;"> p 3 </p>
-		<p style="position:absolute;top:7.5%;left:55%;"> 0 <input id="slider9" type="range" min="0" value="0.2" max="1" step="0.1" list="tickmarks9" onchange="redrawWindow();"/> 1 </p>
+		<p style="position:absolute;top:7.5%;left:55%;"> 0 <input id="slider9" type="range" min="0" value="0.05" max="0.1" step="0.01" list="tickmarks9" onchange="redrawWindow();"/> 0.1 </p>
 		<datalist id="tickmarks9">
 		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
 		  <option value="0.1"></option>
-		  <option value="0.2"></option>
-		  <option value="0.3"></option>
-		  <option value="0.4"></option>
-		  <option value="0.5"></option>
-		  <option value="0.6"></option>
-		  <option value="0.7"></option>
-		  <option value="0.8"></option>
-		  <option value="0.9"></option>
-		  <option value="1"></option>
 		</datalist>
 		<p style="position:absolute;top:17.5%;left:55%;"> lambda 3 </p>
 		<p style="position:absolute;top:22.5%;left:55%;"> 0 <input id="slider10" type="range" min="0" value="50" max="100" step="10" list="tickmarks10" onchange="redrawWindow();"/> 100 </p>
@@ -203,19 +210,19 @@
 			<option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:32.5%;left:55%;"> mu 3 </p>
-		<p style="position:absolute;top:37.5%;left:55%;"> 0 <input id="slider11" type="range" min="0" value="5" max="10" step="1" list="tickmarks11" onchange="redrawWindow();"/> 10 </p>
+		<p style="position:absolute;top:37.5%;left:55%;"> 0 <input id="slider11" type="range" min="0" value="50" max="100" step="10" list="tickmarks11" onchange="redrawWindow();"/> 100 </p>
 		<datalist id="tickmarks11">
 		  <option value="0"></option>
-		  <option value="1"></option>
-		  <option value="2"></option>
-		  <option value="3"></option>
-		  <option value="4"></option>
-		  <option value="5"></option>
-		  <option value="6"></option>
-		  <option value="7"></option>
-		  <option value="8"></option>
-		  <option value="9"></option>
 		  <option value="10"></option>
+		  <option value="20"></option>
+		  <option value="30"></option>
+		  <option value="40"></option>
+		  <option value="50"></option>
+		  <option value="60"></option>
+		  <option value="70"></option>
+		  <option value="80"></option>
+		  <option value="90"></option>
+		  <option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:47.5%;left:55%;"> f 3 </p>
 		<p style="position:absolute;top:52.5%;left:55%;"> 0 <input id="slider12" type="range" min="0" value="5" max="10" step="1" list="tickmarks12" onchange="redrawWindow();"/> 10 </p>
@@ -234,19 +241,19 @@
 		</datalist>
 
 		<p style="position:absolute;top:62.5%;left:55%;"> p 4 </p>
-		<p style="position:absolute;top:67.5%;left:55%;"> 0 <input id="slider13" type="range" min="0" value="0.2" max="1" step="0.1" list="tickmarks13" onchange="redrawWindow();"/> 1 </p>
+		<p style="position:absolute;top:67.5%;left:55%;"> 0 <input id="slider13" type="range" min="0" value="0.01" max="0.1" step="0.01" list="tickmarks13" onchange="redrawWindow();"/> 0.1 </p>
 		<datalist id="tickmarks13">
 		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
 		  <option value="0.1"></option>
-		  <option value="0.2"></option>
-		  <option value="0.3"></option>
-		  <option value="0.4"></option>
-		  <option value="0.5"></option>
-		  <option value="0.6"></option>
-		  <option value="0.7"></option>
-		  <option value="0.8"></option>
-		  <option value="0.9"></option>
-		  <option value="1"></option>
 		</datalist>
 		<p style="position:absolute;top:77.5%;left:55%;"> lambda 4 </p>
 		<p style="position:absolute;top:82.5%;left:55%;"> 0 <input id="slider14" type="range" min="0" value="50" max="100" step="10" list="tickmarks14" onchange="redrawWindow();"/> 100 </p>
@@ -264,19 +271,19 @@
 			<option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:92.5%;left:55%;"> mu 4 </p>
-		<p style="position:absolute;top:97.5%;left:55%;"> 0 <input id="slider15" type="range" min="0" value="5" max="10" step="1" list="tickmarks15" onchange="redrawWindow();"/> 10 </p>
+		<p style="position:absolute;top:97.5%;left:55%;"> 0 <input id="slider15" type="range" min="0" value="50" max="100" step="10" list="tickmarks15" onchange="redrawWindow();"/> 100 </p>
 		<datalist id="tickmarks15">
 		  <option value="0"></option>
-		  <option value="1"></option>
-		  <option value="2"></option>
-		  <option value="3"></option>
-		  <option value="4"></option>
-		  <option value="5"></option>
-		  <option value="6"></option>
-		  <option value="7"></option>
-		  <option value="8"></option>
-		  <option value="9"></option>
 		  <option value="10"></option>
+		  <option value="20"></option>
+		  <option value="30"></option>
+		  <option value="40"></option>
+		  <option value="50"></option>
+		  <option value="60"></option>
+		  <option value="70"></option>
+		  <option value="80"></option>
+		  <option value="90"></option>
+		  <option value="100"></option>
 		</datalist>
 		<p style="position:absolute;top:107.5%;left:55%;"> f 4 </p>
 		<p style="position:absolute;top:112.5%;left:55%;"> 0 <input id="slider16" type="range" min="0" value="5" max="10" step="1" list="tickmarks16" onchange="redrawWindow();"/> 10 </p>
@@ -296,5 +303,6 @@
 	</div>
 	<script type="text/javascript" src="lib/PlotGraph.js"></script>
 	<script type="text/javascript" src="lib/ThePassengersParadox.js"></script>
+	<script type="text/javascript" src="lib/AutomatedDataFetch.js"></script>
 </body>
 </html>
