@@ -124,6 +124,8 @@ var DistTransmission = 1;
 var exportData = [];
 var exportDataAutomated = [];
 
+// var randomNumbersUsed = [];
+
 // This function is executed when the script is loaded. It contains the page initialization code.
 (function() {
   window.addEventListener("resize", redrawWindow); // Redraw whenever the window is resized
@@ -316,18 +318,23 @@ function addDynamicAgents() {
     var ncol = 12;
     var scol = 4;
     var homerow = Math.floor(Math.random()*((nrow+srow)-srow)+srow);
+    // randomNumbersUsed.push(Math.random())
     var homecol = Math.floor(Math.random()*((ncol+scol)-scol)+scol);
+    // randomNumbersUsed.push(Math.random())
     var targetrow = Math.floor(Math.random()*((nrow+srow)-srow)+srow);
+    // randomNumbersUsed.push(Math.random())
     var targetcol = Math.floor(Math.random()*((ncol+scol)-scol)+scol);
+    // randomNumbersUsed.push(Math.random())
     if (Math.random() < probInfected) {
       var newcitizen = {"origin": "Island", "infected": 1, "location": {"row": homerow, "col": homecol}, "target": {"row": targetrow, "col": targetcol}, "state": COMMUTING, "timeAdmitted": currentTime, "timeInfected": currentTime};
     } else {
       var newcitizen = {"origin": "Island", "infected": 0, "location": {"row": homerow, "col": homecol}, "target": {"row": targetrow, "col": targetcol}, "state": COMMUTING, "timeAdmitted": currentTime, "timeInfected": 0};
     }
+    // randomNumbersUsed.push(Math.random())
     citizens.push(newcitizen);
   }
 
-  if (currentTime % planeFrequency1 == 0) {
+  // if (currentTime % planeFrequency1 == 0) {
     var existing1 = false;
     for (var plane of planes) {
       if (plane.type == "Africas") {
@@ -335,33 +342,49 @@ function addDynamicAgents() {
       }
     }
     if (!existing1) {
-      var newplane = {"type": "Africas", "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8.5}, "state": ARRIVED};
-      planes.push(newplane);
+      if (currentTime % planeFrequency1 == 0) {
+        var newplane = {"type": "Africas", "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8.5}, "state": ARRIVED};
+        planes.push(newplane);
+      }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected1) {
-            var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
-            citizens.push(newpassenger);
-          } else {
-            var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
-            citizens.push(newpassenger);
-          }
-        } else {
-          if (Math.random() < probArrival1) {
-            if (Math.random() < probInfected1) {
+            if (currentTime % planeFrequency1 == 0) {
               var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
-            } else {
+            }
+          } else {
+            if (currentTime % planeFrequency1 == 0) {
               var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
+          // randomNumbersUsed.push(Math.random())
+        } else {
+          if (Math.random() < probArrival1) {
+            // randomNumbersUsed.push(Math.random())
+            if (Math.random() < probInfected1) {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency1 == 0) {
+                var newpassenger = {"origin": "Africas", "infected": 1, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
+                citizens.push(newpassenger);
+              }
+            } else {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency1 == 0) {
+                var newpassenger = {"origin": "Africas", "infected": 0, "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
+                citizens.push(newpassenger);
+              }
+            }
+          } else {
+            // randomNumbersUsed.push(Math.random())
+          }
         }
       }
     }
-  }
+  // }
 
-  if (currentTime % planeFrequency2 == 0) {
+  // if (currentTime % planeFrequency2 == 0) {
     var existing2 = false;
     for (var plane of planes) {
       if (plane.type == "APAC") {
@@ -369,33 +392,49 @@ function addDynamicAgents() {
       }
     }
     if (!existing2) {
-      var newplane = {"type": "APAC", "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVED};
-      planes.push(newplane);
+      if (currentTime % planeFrequency2 == 0) {
+        var newplane = {"type": "APAC", "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVED};
+        planes.push(newplane);
+      }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected2) {
-            var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
-            citizens.push(newpassenger);
-          } else {
-            var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
-            citizens.push(newpassenger);
-          }
-        } else {
-          if (Math.random() < probArrival2) {
-            if (Math.random() < probInfected2) {
+            if (currentTime % planeFrequency2 == 0) {
               var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
-            } else {
+            }
+          } else {
+            if (currentTime % planeFrequency2 == 0) {
               var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
+          // randomNumbersUsed.push(Math.random())
+        } else {
+          if (Math.random() < probArrival2) {
+            // randomNumbersUsed.push(Math.random())
+            if (Math.random() < probInfected2) {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency2 == 0) {
+                var newpassenger = {"origin": "APAC", "infected": 1, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
+                citizens.push(newpassenger);
+              }
+            } else {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency2 == 0) {
+                var newpassenger = {"origin": "APAC", "infected": 0, "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
+                citizens.push(newpassenger);
+              }
+            }
+          } else {
+            // randomNumbersUsed.push(Math.random())
+          }
         }
       }
     }
-  }
+  // }
 
-  if (currentTime % planeFrequency3 == 0) {
+  // if (currentTime % planeFrequency3 == 0) {
     var existing3 = false;
     for (var plane of planes) {
       if (plane.type == "Americas") {
@@ -403,33 +442,49 @@ function addDynamicAgents() {
       }
     }
     if (!existing3) {
-      var newplane = {"type": "Americas", "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVED};
-      planes.push(newplane);
+      if (currentTime % planeFrequency3 == 0) {
+        var newplane = {"type": "Americas", "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVED};
+        planes.push(newplane);
+      }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected3) {
-            var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
-            citizens.push(newpassenger);
-          } else {
-            var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
-            citizens.push(newpassenger);
-          }
-        } else {
-          if (Math.random() < probArrival3) {
-            if (Math.random() < probInfected3) {
+            if (currentTime % planeFrequency3 == 0) {
               var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
-            } else {
+            }
+          } else {
+            if (currentTime % planeFrequency3 == 0) {
               var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
+          // randomNumbersUsed.push(Math.random())
+        } else {
+          if (Math.random() < probArrival3) {
+            // randomNumbersUsed.push(Math.random())
+            if (Math.random() < probInfected3) {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency3 == 0) {
+                var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
+                citizens.push(newpassenger);
+              }
+            } else {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency3 == 0) {
+                var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
+                citizens.push(newpassenger);
+              }
+            }
+          } else {
+            // randomNumbersUsed.push(Math.random())
+          }
         }
       }
     }
-  }
+  // }
 
-  if (currentTime % planeFrequency4 == 0) {
+  // if (currentTime % planeFrequency4 == 0) {
     var existing4 = false;
     for (var plane of planes) {
       if (plane.type == "Europe") {
@@ -437,31 +492,47 @@ function addDynamicAgents() {
       }
     }
     if (!existing4) {
-      var newplane = {"type": "Europe", "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8.5}, "state": ARRIVED};
-      planes.push(newplane);
+      if (currentTime % planeFrequency4 == 0) {
+        var newplane = {"type": "Europe", "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8.5}, "state": ARRIVED};
+        planes.push(newplane);
+      }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected4) {
-            var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
-            citizens.push(newpassenger);
-          } else {
-            var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
-            citizens.push(newpassenger);
-          }
-        } else {
-          if (Math.random() < probArrival4) {
-            if (Math.random() < probInfected4) {
+            if (currentTime % planeFrequency4 == 0) {
               var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
-            } else {
+            }
+          } else {
+            if (currentTime % planeFrequency4 == 0) {
               var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
               citizens.push(newpassenger);
             }
           }
+          // randomNumbersUsed.push(Math.random())
+        } else {
+          if (Math.random() < probArrival4) {
+            // randomNumbersUsed.push(Math.random())
+            if (Math.random() < probInfected4) {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency4 == 0) {
+                var newpassenger = {"origin": "Europe", "infected": 1, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
+                citizens.push(newpassenger);
+              }
+            } else {
+              // randomNumbersUsed.push(Math.random())
+              if (currentTime % planeFrequency4 == 0) {
+                var newpassenger = {"origin": "Europe", "infected": 0, "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
+                citizens.push(newpassenger);
+              }
+            }
+          } else {
+            // randomNumbersUsed.push(Math.random())
+          }
         }
       }
     }
-  }
+  // }
 }
 
 function updatePlane(planeIndex) {
@@ -477,64 +548,77 @@ function updatePlane(planeIndex) {
   if (state == ARRIVED) {
     if (hasArrived) {
       if (type == "Africas") {
-        if (currentTime % planeFrequency1 == 0) {
+        // if (currentTime % planeFrequency1 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Africas") {
               if (Math.random() < probDeparture1 && departingcitizens1 < 50) {
-                citizen.state = LEAVING;
-                citizen.target.row = 9;
-                citizen.target.col = 8;
-                departingcitizens1 = departingcitizens1 + 1;
+                if (currentTime % planeFrequency1 == 0) {
+                  citizen.state = LEAVING;
+                  citizen.target.row = 9;
+                  citizen.target.col = 8;
+                  departingcitizens1 = departingcitizens1 + 1;
+                }
               }
+              // randomNumbersUsed.push(Math.random())
             }
           }
-        }
+        // }
       }
       if (type == "APAC") {
-        if (currentTime % planeFrequency2 == 0) {
+        // if (currentTime % planeFrequency2 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "APAC") {
               if (Math.random() < probDeparture2 && departingcitizens2 < 50) {
-                citizen.state = LEAVING;
-                citizen.target.row = 9;
-                citizen.target.col = 10;
-                departingcitizens2 = departingcitizens2 + 1;
+                if (currentTime % planeFrequency2 == 0) {
+                  citizen.state = LEAVING;
+                  citizen.target.row = 9;
+                  citizen.target.col = 10;
+                  departingcitizens2 = departingcitizens2 + 1;
+                }
               }
+              // randomNumbersUsed.push(Math.random())
             }
           }
-        }
+        // }
       }
       if (type == "Americas") {
-        if (currentTime % planeFrequency3 == 0) {
+        // if (currentTime % planeFrequency3 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Americas") {
               if (Math.random() < probDeparture3 && departingcitizens3 < 50) {
-                citizen.state = LEAVING;
-                citizen.target.row = 10;
-                citizen.target.col = 10;
-                departingcitizens3 = departingcitizens3 + 1;
+                if (currentTime % planeFrequency3 == 0) {
+                  citizen.state = LEAVING;
+                  citizen.target.row = 10;
+                  citizen.target.col = 10;
+                  departingcitizens3 = departingcitizens3 + 1;
+                }
               }
+              // randomNumbersUsed.push(Math.random())
             }
           }
-        }
+        //}
       }
       if (type == "Europe") {
-        if (currentTime % planeFrequency4 == 0) {
+        // if (currentTime % planeFrequency4 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Europe") {
               if (Math.random() < probDeparture4 && departingcitizens4 < 50) {
-                citizen.state = LEAVING;
-                citizen.target.row = 10;
-                citizen.target.col = 8;
-                departingcitizens4 = departingcitizens4 + 1;
+                // randomNumbersUsed.push(Math.random())
+                if (currentTime % planeFrequency4 == 0) {
+                  citizen.state = LEAVING;
+                  citizen.target.row = 10;
+                  citizen.target.col = 8;
+                  departingcitizens4 = departingcitizens4 + 1;
+                }
               }
+              // randomNumbersUsed.push(Math.random())
             }
           }
-        }
+        //}
       }
     }
   }
@@ -580,6 +664,7 @@ function updateCitizen(citizenIndex) {
           citizen.infected = 1;
           citizen.timeInfected = currentTime;
         };
+        // randomNumbersUsed.push(Math.random())
       }
       i=i+1;
     }
@@ -588,6 +673,7 @@ function updateCitizen(citizenIndex) {
   if (Math.random() < probRecovered) {
     citizen.infected = 0;
   }
+  // randomNumbersUsed.push(Math.random())
 
   if (state == ARRIVING) {
       if (hasArrived) {
@@ -598,7 +684,9 @@ function updateCitizen(citizenIndex) {
         var ncol = 12;
         var scol = 4;
         var targetrow = Math.floor(Math.random() * ((nrow+srow)-srow)+srow);
+        // randomNumbersUsed.push(Math.random())
         var targetcol = Math.floor(Math.random() * ((ncol+scol)-scol)+scol);
+        // randomNumbersUsed.push(Math.random())
         citizen.target.row = targetrow;
         citizen.target.col = targetcol;
       }
@@ -610,7 +698,9 @@ function updateCitizen(citizenIndex) {
       var ncol = 12;
       var scol = 4;
       var targetrow = Math.floor(Math.random() * ((nrow+srow)-srow)+srow);
+      // randomNumbersUsed.push(Math.random())
       var targetcol = Math.floor(Math.random() * ((ncol+scol)-scol)+scol);
+      // randomNumbersUsed.push(Math.random())
       citizen.target.row = targetrow;
       citizen.target.col = targetcol;
     }
@@ -808,7 +898,8 @@ function exportDataFunctionAutomated() {
     exportDataAutomated.push(["Run " + i + " Revenue"]);
   }
 
-  var i = 0
+  var i = 0;
+  Math.seedrandom('hello.');
   while (i < numberOfRuns) {
     while (currentTime < numberOfDataPoints) {
       currentTime++;
@@ -822,6 +913,9 @@ function exportDataFunctionAutomated() {
     i++;
     redrawWindow();
   }
+
+  // console.log(randomNumbersUsed)
+  // randomNumbersUsed = [];
 
   let csvContent = "data:text/csv;charset=utf-8," + exportDataAutomated.map(e => e.join(",")).join("\n");
   var encodedUri = encodeURI(csvContent);
