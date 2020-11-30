@@ -895,6 +895,7 @@ function exportDataFunctionAutomated() {
   for (i=1; i <= numberOfRuns; i++) {
     exportDataAutomated.push(["Run " + i + " Cost"]);
     exportDataAutomated.push(["Run " + i + " Revenue"]);
+    exportDataAutomated.push(["Run " + i + " Profit"]);
   }
 
   var i = 0;
@@ -906,8 +907,9 @@ function exportDataFunctionAutomated() {
       updateDynamicAgents();
       removeDynamicAgents();
 
-      exportDataAutomated[2*(i)].push(statistics[0].count);
-      exportDataAutomated[2*(i)+1].push(statistics[1].count);
+      exportDataAutomated[3*(i)].push(statistics[0].count);
+      exportDataAutomated[3*(i)+1].push(statistics[1].count);
+      exportDataAutomated[3*(i)+2].push(statistics[1].count-statistics[0].count);
     }
     i++;
     redrawWindow();
