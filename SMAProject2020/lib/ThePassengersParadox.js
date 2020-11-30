@@ -334,7 +334,7 @@ function addDynamicAgents() {
     citizens.push(newcitizen);
   }
 
-  // if (currentTime % planeFrequency1 == 0) {
+  if (currentTime % planeFrequency1 == 0) {
     var existing1 = false;
     for (var plane of planes) {
       if (plane.type == "Africas") {
@@ -342,10 +342,10 @@ function addDynamicAgents() {
       }
     }
     if (!existing1) {
-      if (currentTime % planeFrequency1 == 0) {
+      // if (currentTime % planeFrequency1 == 0) {
         var newplane = {"type": "Africas", "location": {"row": 2, "col": 1}, "target": {"row": 9, "col": 8.5}, "state": ARRIVED};
         planes.push(newplane);
-      }
+      // }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected1) {
@@ -382,9 +382,9 @@ function addDynamicAgents() {
         }
       }
     }
-  // }
+  }
 
-  // if (currentTime % planeFrequency2 == 0) {
+  if (currentTime % planeFrequency2 == 0) {
     var existing2 = false;
     for (var plane of planes) {
       if (plane.type == "APAC") {
@@ -392,10 +392,10 @@ function addDynamicAgents() {
       }
     }
     if (!existing2) {
-      if (currentTime % planeFrequency2 == 0) {
+      // if (currentTime % planeFrequency2 == 0) {
         var newplane = {"type": "APAC", "location": {"row": 2, "col": 18}, "target": {"row": 9, "col": 10}, "state": ARRIVED};
         planes.push(newplane);
-      }
+      // }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected2) {
@@ -432,9 +432,9 @@ function addDynamicAgents() {
         }
       }
     }
-  // }
+  }
 
-  // if (currentTime % planeFrequency3 == 0) {
+  if (currentTime % planeFrequency3 == 0) {
     var existing3 = false;
     for (var plane of planes) {
       if (plane.type == "Americas") {
@@ -442,17 +442,17 @@ function addDynamicAgents() {
       }
     }
     if (!existing3) {
-      if (currentTime % planeFrequency3 == 0) {
+      // if (currentTime % planeFrequency3 == 0) {
         var newplane = {"type": "Americas", "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVED};
         planes.push(newplane);
-      }
+      // }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected3) {
-            if (currentTime % planeFrequency3 == 0) {
+            // if (currentTime % planeFrequency3 == 0) {
               var newpassenger = {"origin": "Americas", "infected": 1, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": currentTime};
               citizens.push(newpassenger);
-            }
+            // }
           } else {
             if (currentTime % planeFrequency3 == 0) {
               var newpassenger = {"origin": "Americas", "infected": 0, "location": {"row": 18, "col": 18}, "target": {"row": 10, "col": 10}, "state": ARRIVING, "timeAdmitted": currentTime, "timeInfected": 0};
@@ -482,9 +482,9 @@ function addDynamicAgents() {
         }
       }
     }
-  // }
+  }
 
-  // if (currentTime % planeFrequency4 == 0) {
+  if (currentTime % planeFrequency4 == 0) {
     var existing4 = false;
     for (var plane of planes) {
       if (plane.type == "Europe") {
@@ -492,10 +492,10 @@ function addDynamicAgents() {
       }
     }
     if (!existing4) {
-      if (currentTime % planeFrequency4 == 0) {
+      // if (currentTime % planeFrequency4 == 0) {
         var newplane = {"type": "Europe", "location": {"row": 18, "col": 1}, "target": {"row": 10, "col": 8.5}, "state": ARRIVED};
         planes.push(newplane);
-      }
+      // }
       for (var i = 0; i < planeCapacity; i++) {
         if (i < planeCapacityMin) {
           if (Math.random() < probInfected4) {
@@ -532,7 +532,7 @@ function addDynamicAgents() {
         }
       }
     }
-  // }
+  }
 }
 
 function updatePlane(planeIndex) {
@@ -548,77 +548,76 @@ function updatePlane(planeIndex) {
   if (state == ARRIVED) {
     if (hasArrived) {
       if (type == "Africas") {
-        // if (currentTime % planeFrequency1 == 0) {
+        if (currentTime % planeFrequency1 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Africas") {
               if (Math.random() < probDeparture1 && departingcitizens1 < 50) {
-                if (currentTime % planeFrequency1 == 0) {
+                // if (currentTime % planeFrequency1 == 0) {
                   citizen.state = LEAVING;
                   citizen.target.row = 9;
                   citizen.target.col = 8;
                   departingcitizens1 = departingcitizens1 + 1;
-                }
+                // }
               }
               // randomNumbersUsed.push(Math.random())
             }
           }
-        // }
+        }
       }
       if (type == "APAC") {
-        // if (currentTime % planeFrequency2 == 0) {
+        if (currentTime % planeFrequency2 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "APAC") {
               if (Math.random() < probDeparture2 && departingcitizens2 < 50) {
-                if (currentTime % planeFrequency2 == 0) {
+                // if (currentTime % planeFrequency2 == 0) {
                   citizen.state = LEAVING;
                   citizen.target.row = 9;
                   citizen.target.col = 10;
                   departingcitizens2 = departingcitizens2 + 1;
-                }
+                // }
               }
               // randomNumbersUsed.push(Math.random())
             }
           }
-        // }
+        }
       }
       if (type == "Americas") {
-        // if (currentTime % planeFrequency3 == 0) {
+        if (currentTime % planeFrequency3 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Americas") {
               if (Math.random() < probDeparture3 && departingcitizens3 < 50) {
-                if (currentTime % planeFrequency3 == 0) {
+                // if (currentTime % planeFrequency3 == 0) {
                   citizen.state = LEAVING;
                   citizen.target.row = 10;
                   citizen.target.col = 10;
                   departingcitizens3 = departingcitizens3 + 1;
-                }
+                // }
               }
               // randomNumbersUsed.push(Math.random())
             }
           }
-        //}
+        }
       }
       if (type == "Europe") {
-        // if (currentTime % planeFrequency4 == 0) {
+        if (currentTime % planeFrequency4 == 0) {
           plane.state = PLANNEDHOMING;
           for (citizen of citizens) {
             if (citizen.origin == "Europe") {
               if (Math.random() < probDeparture4 && departingcitizens4 < 50) {
-                // randomNumbersUsed.push(Math.random())
-                if (currentTime % planeFrequency4 == 0) {
+                // if (currentTime % planeFrequency4 == 0) {
                   citizen.state = LEAVING;
                   citizen.target.row = 10;
                   citizen.target.col = 8;
                   departingcitizens4 = departingcitizens4 + 1;
-                }
+                // }
               }
               // randomNumbersUsed.push(Math.random())
             }
           }
-        //}
+        }
       }
     }
   }
