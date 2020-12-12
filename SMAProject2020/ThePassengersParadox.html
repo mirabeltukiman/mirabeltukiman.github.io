@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>The Passengers' Paradox</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+		<!-- d3 is for data visualization -->
+		<script type="text/javascript" src="lib/d3.min.js"></script>
+
+		<!-- inspectElement is useful for debugging javascript objects -->
+		<script type="text/javascript" src="lib/inspectElement.js"></script>
+
+		<!-- plotly is for drawing graphs -->
+		<script type="text/javascript" src="lib/plotly.min.js"></script>
+
+		<!-- custom styles for this application -->
+		<link rel="stylesheet" href="styles/basicagentmodel.css" media="screen">
+
+</head>
+<!-- Set class to official for more formal font; unofficial for informal font -->
+<body class="official bgColor7">
+
+	<!-- The surface is the main playing field for the game -->
+	<svg  id="surface" style="width:100%; height:100%" xmlns="http://www.w3.org/2000/svg" version="1.1" onclick="toggleSimStep();">
+	</svg>
+
+	<div id="title"  style="position:absolute;top:2%;left:1%">The Passengers' Paradox</div>
+	<a id="credits" href="http://www.icons-land.com" style="position:absolute;bottom:0;right:0;display:none;">Icons by icons-land.com</a>
+
+	<!-- Add in Charts -->
+	<div id="chart1" style="position:absolute; top:0%; right:5%; width:35%; height:55%;"></div>
+
+	<!-- Add in Sliders -->
+	<div class = "placeholder-box" style="display:inline-block;">
+		<p style="position:absolute;top:2.5%;left:5%;font-size:12px;"> Probability of Infection (Africas) </p>
+		<p style="position:absolute;top:7.5%;left:5%;font-size:12px;"> 0 <input id="slider1" type="range" min="0" value="0.01" max="0.1" step="0.01" list="tickmarks1" onchange="redrawWindow();"/> 0.1 </p>
+		<datalist id="tickmarks1">
+		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
+		  <option value="0.1"></option>
+		</datalist>
+		<p style="position:absolute;top:17.5%;left:5%;font-size:12px;"> Weight of Revenue (Africas) </p>
+		<p style="position:absolute;top:22.5%;left:5%;font-size:12px;"> 0 <input id="slider2" type="range" min="0" value="50" max="100" step="10" list="tickmarks2" onchange="redrawWindow();"/> 100 </p>
+		<datalist id="tickmarks2">
+		  <option value="0"></option>
+		  <option value="10"></option>
+		  <option value="20"></option>
+		  <option value="30"></option>
+		  <option value="40"></option>
+		  <option value="50"></option>
+		  <option value="60"></option>
+		  <option value="70"></option>
+		  <option value="80"></option>
+		  <option value="90"></option>
+		  <option value="100"></option>
+		</datalist>
+		<p style="position:absolute;top:32.5%;left:5%;font-size:12px;"> Frequency of Plane (Africas) </p>
+		<p style="position:absolute;top:37.5%;left:5%;font-size:12px;"> 0 <input id="slider3" type="range" min="0" value="5" max="10" step="1" list="tickmarks4" onchange="redrawWindow();"/> 10</p>
+		<datalist id="tickmarks4">
+		  <option value="0"></option>
+		  <option value="1"></option>
+		  <option value="2"></option>
+		  <option value="3"></option>
+		  <option value="4"></option>
+		  <option value="5"></option>
+		  <option value="6"></option>
+		  <option value="7"></option>
+		  <option value="8"></option>
+		  <option value="9"></option>
+		  <option value="10"></option>
+		</datalist>
+
+		<p style="position:absolute;top:57.5%;left:5%;font-size:12px;"> Probability of Infection (APAC) </p>
+		<p style="position:absolute;top:62.5%;left:5%;font-size:12px;"> 0 <input id="slider4" type="range" min="0" value="0.01" max="0.1" step="0.01" list="tickmarks5" onchange="redrawWindow();"/> 0.1 </p>
+		<datalist id="tickmarks5">
+		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
+		  <option value="0.1"></option>
+		</datalist>
+		<p style="position:absolute;top:72.5%;left:5%;font-size:12px;"> Weight of Revenue (APAC) </p>
+		<p style="position:absolute;top:77.5%;left:5%;font-size:12px;"> 0 <input id="slider5" type="range" min="0" value="50" max="100" step="10" list="tickmarks6" onchange="redrawWindow();"/> 100 </p>
+		<datalist id="tickmarks6">
+			<option value="0"></option>
+			<option value="10"></option>
+			<option value="20"></option>
+			<option value="30"></option>
+			<option value="40"></option>
+			<option value="50"></option>
+			<option value="60"></option>
+			<option value="70"></option>
+			<option value="80"></option>
+			<option value="90"></option>
+			<option value="100"></option>
+		</datalist>
+		<p style="position:absolute;top:87.5%;left:5%;font-size:12px;"> Frequency of Plane (APAC) </p>
+		<p style="position:absolute;top:92.5%;left:5%;font-size:12px;"> 0 <input id="slider6" type="range" min="0" value="5" max="10" step="1" list="tickmarks8" onchange="redrawWindow();"/> 10 </p>
+		<datalist id="tickmarks8">
+		  <option value="0"></option>
+		  <option value="1"></option>
+		  <option value="2"></option>
+		  <option value="3"></option>
+		  <option value="4"></option>
+		  <option value="5"></option>
+		  <option value="6"></option>
+		  <option value="7"></option>
+		  <option value="8"></option>
+		  <option value="9"></option>
+		  <option value="10"></option>
+		</datalist>
+
+		<p style="position:absolute;top:112.5%;left:5%;font-size:12px;"> Weight of Costs (Citizens) </p>
+		<p style="position:absolute;top:117.5%;left:5%;font-size:12px;"> 0 <input id="slider7" type="range" min="0" value="5" max="10" step="1" list="tickmarks7" onchange="redrawWindow();"/> 10 </p>
+		<datalist id="tickmarks7">
+		  <option value="0"></option>
+		  <option value="1"></option>
+		  <option value="2"></option>
+		  <option value="3"></option>
+		  <option value="4"></option>
+		  <option value="5"></option>
+		  <option value="6"></option>
+		  <option value="7"></option>
+		  <option value="8"></option>
+		  <option value="9"></option>
+		  <option value="10"></option>
+		</datalist>
+
+		<p style="position:absolute;top:2.5%;left:55%;font-size:12px;"> Probability of Infection (Americas)</p>
+		<p style="position:absolute;top:7.5%;left:55%;font-size:12px;"> 0 <input id="slider8" type="range" min="0" value="0.05" max="0.1" step="0.01" list="tickmarks9" onchange="redrawWindow();"/> 0.1 </p>
+		<datalist id="tickmarks9">
+		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
+		  <option value="0.1"></option>
+		</datalist>
+		<p style="position:absolute;top:17.5%;left:55%;font-size:12px;"> Weight of Revenue (Americas) </p>
+		<p style="position:absolute;top:22.5%;left:55%;font-size:12px;"> 0 <input id="slider9" type="range" min="0" value="50" max="100" step="10" list="tickmarks10" onchange="redrawWindow();"/> 100 </p>
+		<datalist id="tickmarks10">
+			<option value="0"></option>
+			<option value="10"></option>
+			<option value="20"></option>
+			<option value="30"></option>
+			<option value="40"></option>
+			<option value="50"></option>
+			<option value="60"></option>
+			<option value="70"></option>
+			<option value="80"></option>
+			<option value="90"></option>
+			<option value="100"></option>
+		</datalist>
+		<p style="position:absolute;top:32.5%;left:55%;font-size:12px;"> Frequency of Plane (Americas) </p>
+		<p style="position:absolute;top:37.5%;left:55%;font-size:12px;"> 0 <input id="slider10" type="range" min="0" value="5" max="10" step="1" list="tickmarks12" onchange="redrawWindow();"/> 10 </p>
+		<datalist id="tickmarks12">
+		  <option value="0"></option>
+		  <option value="1"></option>
+		  <option value="2"></option>
+		  <option value="3"></option>
+		  <option value="4"></option>
+		  <option value="5"></option>
+		  <option value="6"></option>
+		  <option value="7"></option>
+		  <option value="8"></option>
+		  <option value="9"></option>
+		  <option value="10"></option>
+		</datalist>
+
+		<p style="position:absolute;top:57.5%;left:55%;font-size:12px;"> Probability of Infection (Europe) </p>
+		<p style="position:absolute;top:62.5%;left:55%;font-size:12px;"> 0 <input id="slider11" type="range" min="0" value="0.01" max="0.1" step="0.01" list="tickmarks13" onchange="redrawWindow();"/> 0.1 </p>
+		<datalist id="tickmarks13">
+		  <option value="0"></option>
+		  <option value="0.01"></option>
+		  <option value="0.02"></option>
+		  <option value="0.03"></option>
+		  <option value="0.04"></option>
+		  <option value="0.05"></option>
+		  <option value="0.06"></option>
+		  <option value="0.07"></option>
+		  <option value="0.08"></option>
+		  <option value="0.09"></option>
+		  <option value="0.1"></option>
+		</datalist>
+		<p style="position:absolute;top:72.5%;left:55%;font-size:12px;"> Weight of Revenue (Europe) </p>
+		<p style="position:absolute;top:77.5%;left:55%;font-size:12px;"> 0 <input id="slider12" type="range" min="0" value="50" max="100" step="10" list="tickmarks14" onchange="redrawWindow();"/> 100 </p>
+		<datalist id="tickmarks14">
+			<option value="0"></option>
+			<option value="10"></option>
+			<option value="20"></option>
+			<option value="30"></option>
+			<option value="40"></option>
+			<option value="50"></option>
+			<option value="60"></option>
+			<option value="70"></option>
+			<option value="80"></option>
+			<option value="90"></option>
+			<option value="100"></option>
+		</datalist>
+		<p style="position:absolute;top:87.5%;left:55%;font-size:12px;"> Frequency of Plane (Europe) </p>
+		<p style="position:absolute;top:92.5%;left:55%;font-size:12px;"> 0 <input id="slider13" type="range" min="0" value="5" max="10" step="1" list="tickmarks16" onchange="redrawWindow();"/> 10 </p>
+		<datalist id="tickmarks16">
+		  <option value="0"></option>
+		  <option value="1"></option>
+		  <option value="2"></option>
+		  <option value="3"></option>
+		  <option value="4"></option>
+		  <option value="5"></option>
+		  <option value="6"></option>
+		  <option value="7"></option>
+		  <option value="8"></option>
+		  <option value="9"></option>
+		  <option value="10"></option>
+		</datalist>
+
+		<p style="position:absolute;top:112.5%;left:55%;font-size:12px;"> Weight of Costs (Tourists) </p>
+		<p style="position:absolute;top:117.5%;left:55%;font-size:12px;"> 0 <input id="slider14" type="range" min="0" value="5" max="10" step="1" list="tickmarks15" onchange="redrawWindow();"/> 10 </p>
+		<datalist id="tickmarks15">
+		  <option value="0"></option>
+		  <option value="1"></option>
+		  <option value="2"></option>
+		  <option value="3"></option>
+		  <option value="4"></option>
+		  <option value="5"></option>
+		  <option value="6"></option>
+		  <option value="7"></option>
+		  <option value="8"></option>
+		  <option value="9"></option>
+		  <option value="10"></option>
+		</datalist>
+	</div>
+	<script type="text/javascript" src="lib/PlotGraph.js"></script>
+	<script type="text/javascript" src="lib/ThePassengersParadox.js"></script>
+</body>
+</html>
